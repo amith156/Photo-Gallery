@@ -21,17 +21,32 @@ class ViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        gradient.frame = container.bounds
         container.setGradientBackground(colourArray: cellRandomBackgroundColors())
     }
 
-    let gradient = CAGradientLayer()
     
 //    MARK: - Properties
     lazy var container : UIView = {
         var view = UIView()
-        view.layer.insertSublayer(gradient, at: 0)
+        view.addSubview(profileImage)
+        profileImage.customAcnhor(width: 100, height: 100)
+        profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profileImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        profileImage.layer.cornerRadius = 100/2
+//        profileImage.layer
         return view
+    }()
+    
+    lazy var profileImage : UIImageView = {
+        var imageView = UIImageView()
+        imageView.backgroundColor = .white
+        imageView.image = #imageLiteral(resourceName: "dog3")
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 3
+        
+        return imageView
     }()
     
     
@@ -66,12 +81,9 @@ class ViewController: UIViewController {
 
         var cgColourArray : [CGColor] = []
         let randomColors = colorsTable.values.randomElement()
-//        print(randomColors)
         if let colDect = randomColors {
             for value in colDect {
-                print(value.cgColor)
                 cgColourArray.append(value.cgColor)
-                print(randomColors!)
             }
         }
 
