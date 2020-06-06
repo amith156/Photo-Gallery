@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Lottie
 
 class ViewController: UIViewController {
 
+    private var messageAnimationView: AnimationView?
+    private var personAnimationView: AnimationView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -29,25 +33,75 @@ class ViewController: UIViewController {
     lazy var container : UIView = {
         var view = UIView()
         view.addSubview(profileImage)
-        profileImage.customAcnhor(width: 100, height: 100)
+        
+        profileImage.customAcnhor(width: 120, height: 120)
         profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        profileImage.layer.cornerRadius = 100/2
-//        profileImage.layer
+        profileImage.layer.cornerRadius = 120/2
+
+        messageButtonAnimation(view: view)
+        personButtonAnimation(view: view)
         return view
     }()
     
+    
     lazy var profileImage : UIImageView = {
-        var imageView = UIImageView()
-        imageView.backgroundColor = .white
-        imageView.image = #imageLiteral(resourceName: "dog3")
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.borderWidth = 3
+           var imageView = UIImageView()
+           imageView.backgroundColor = .white
+           imageView.image = #imageLiteral(resourceName: "dog3")
+           imageView.clipsToBounds = true
+           imageView.contentMode = .scaleAspectFill
+           imageView.layer.borderColor = UIColor.white.cgColor
+           imageView.layer.borderWidth = 3
+           
+           return imageView
+       }()
+    
+    
+    //MARK: - working on 
+    func messageButtonAnimation(view : UIView) {
         
-        return imageView
-    }()
+        messageAnimationView = .init(name: "email1")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(playMessageAnimation))
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1
+        
+        messageAnimationView?.animationSpeed = 1.8
+        messageAnimationView?.isUserInteractionEnabled = true
+        messageAnimationView?.addGestureRecognizer(tap)
+        messageAnimationView?.bringSubviewToFront(profileImage)
+        view.addSubview(messageAnimationView!)
+        messageAnimationView?.customAcnhor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 50, paddingLeft: 10, width: 65, height: 65)
+    }
+    
+    @objc func playMessageAnimation() {
+        messageAnimationView?.play()
+    }
+    
+    func personButtonAnimation(view : UIView) {
+        
+        personAnimationView = .init(name: "person")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(playAddPersonAnimation))
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1
+        
+        personAnimationView?.animationSpeed = 1
+        personAnimationView?.isUserInteractionEnabled = true
+        personAnimationView?.addGestureRecognizer(tap)
+        personAnimationView?.bringSubviewToFront(profileImage)
+        view.addSubview(personAnimationView!)
+        personAnimationView?.customAcnhor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 50, paddingRight: 10, width: 75, height: 75)
+    }
+    
+    @objc func playAddPersonAnimation() {
+        personAnimationView?.play()
+    }
+    
+    
+    
+   
     
     
     func cellRandomBackgroundColors() -> [CGColor] {
