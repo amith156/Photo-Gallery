@@ -9,7 +9,7 @@
 import UIKit
 import Lottie
 
-class ViewController: UIViewController {
+class ProfileVC: UICollectionViewController {
 
     private var messageAnimationView: AnimationView?
     private var personAnimationView: AnimationView?
@@ -39,6 +39,14 @@ class ViewController: UIViewController {
         profileImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         profileImage.layer.cornerRadius = 120/2
 
+        view.addSubview(nameLable)
+        nameLable.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        nameLable.customAcnhor(top: profileImage.bottomAnchor, paddingTop: 12)
+        
+        view.addSubview(emailLable)
+        emailLable.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emailLable.customAcnhor(top: nameLable.bottomAnchor, paddingTop: 1)
+        
         messageButtonAnimation(view: view)
         personButtonAnimation(view: view)
         return view
@@ -57,8 +65,25 @@ class ViewController: UIViewController {
            return imageView
        }()
     
+    lazy var nameLable : UILabel = {
+        var name = UILabel()
+        name.textAlignment = .center
+        name.font = UIFont.boldSystemFont(ofSize: 26)
+        name.text = "Zeenu"
+        name.textColor = .white
+        return name
+    }()
     
-    //MARK: - working on 
+    lazy var emailLable : UILabel = {
+        var email = UILabel()
+        email.textAlignment = .center
+        email.font = UIFont.systemFont(ofSize: 18)
+        email.text = "Zeenu@gmail.com"
+        email.textColor = .white
+        return email
+    }()
+    
+    //MARK: - message button
     func messageButtonAnimation(view : UIView) {
         
         messageAnimationView = .init(name: "email1")
@@ -79,6 +104,7 @@ class ViewController: UIViewController {
         messageAnimationView?.play()
     }
     
+    // MARK: - person button
     func personButtonAnimation(view : UIView) {
         
         personAnimationView = .init(name: "person")
@@ -87,7 +113,7 @@ class ViewController: UIViewController {
         tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 1
         
-        personAnimationView?.animationSpeed = 1
+        personAnimationView?.animationSpeed = 1.2
         personAnimationView?.isUserInteractionEnabled = true
         personAnimationView?.addGestureRecognizer(tap)
         personAnimationView?.bringSubviewToFront(profileImage)
@@ -100,10 +126,7 @@ class ViewController: UIViewController {
     }
     
     
-    
-   
-    
-    
+    //MARK: - custom colours for graident
     func cellRandomBackgroundColors() -> [CGColor] {
         //Colors
         let red = [#colorLiteral(red: 0.9654200673, green: 0.1590853035, blue: 0.2688751221, alpha: 1),#colorLiteral(red: 0.7559037805, green: 0.1139892414, blue: 0.1577021778, alpha: 1),#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)]
