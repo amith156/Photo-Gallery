@@ -97,7 +97,7 @@ class ProfileHeader: UICollectionReusableView {
     lazy var profileImage : UIImageView = {
            var imageView = UIImageView()
            imageView.backgroundColor = .white
-           imageView.image = #imageLiteral(resourceName: "dog3")
+           imageView.image = #imageLiteral(resourceName: "doberman-893937__480")
            imageView.clipsToBounds = true
            imageView.contentMode = .scaleAspectFill
            imageView.layer.borderColor = UIColor.white.cgColor
